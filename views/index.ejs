@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta charset="UTF-8">
+	<title>Parking Lot Monitoring</title>
+	<!-- link to css file [Bulma CSS framework used] -->
+	<link rel="stylesheet" href="/css/bulma.css">
+
+	<style>
+		.center {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+		}
+
+		.white {
+			color: white;
+		}
+	</style>
+</head>
+
+<body>
+	<div class="container">
+		<section class="hero has-background-black">
+			<div class="hero-body center">
+				<h2 class="title white is-2">Automated Parking Lot Monitoring System Dashboard</h2> <br>
+			</div>			
+		</section>
+
+		<center><h2 class="title is-2" style="padding-top: 40px;">Toll Rate: BDT 5.00/minute </h2></center>
+
+		<div class="columns" style="padding-top: 40px;">
+			<!-- EJS templating, this is where we display the data we got back from the server (app.js) -->
+
+			<!-- if the array exists -->
+			<% if (docs) { %>
+				<!-- loop through the array -->
+				<% for (var i = 0; i < docs.length; i++) { %>
+				<!-- create column for each of the sensor objects -->
+				<div class="column">
+					<!-- add a bit of styling -->
+					<div class="notification">
+						<!-- print out the data -->
+						<h6 class="title is-6"> Parking Number: <%= docs[i].sensor_number %></h6>
+						<h6 class="title is-6"> Currently Occupied: <%= docs[i].occupied ? 'Yes': 'No' %></h6>
+						
+						<!-- print toll amount and time occupied only if occupied attribute is True -->
+						<% if(docs[i].occupied)  { %>
+							<h6 class="title is-6"> Time Occupied: <%= Math.floor(docs[i].time_occupied / 60) %> minutes and <%= docs[i].time_occupied % 60 %> seconds. </h6>
+							<h6 class="title is-6"> Current Toll: BDT. <%= docs[i].toll %></h6>
+						<% } %>
+					</div>
+				</div>
+				<% } %>
+				<br>
+			<% } %>
+		</div>
+	</div>
+</body>
+
+<!-- link to scripts -->
+<script src="../index.js"></script>
+
+</html>
