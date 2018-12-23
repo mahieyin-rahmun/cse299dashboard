@@ -5,13 +5,13 @@ const mongoose = require('mongoose');
 require('dotenv').config();
 
 // setup database connection parameters
-var username = process.env.username;
-var password = process.env.password;
+var username = process.env.USERNAME;
+var password = process.env.PASSWORD;
 const url = `mongodb://${username}:${password}@ds151840.mlab.com:51840/cse299`;
 var options = { keepAlive: 300000, connectTimeoutMS: 30000, useNewUrlParser: true};
 
 // localhost port
-const port = 3000;
+const port = process.env.PORT || 3000;
 
 // define the model/structure of the database objects we want to query
 var Sensor = mongoose.model('Sensor', {
